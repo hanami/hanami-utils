@@ -7,8 +7,8 @@ require "hanami/utils/version"
 Gem::Specification.new do |spec|
   spec.name          = "hanami-utils"
   spec.version       = Hanami::Utils::VERSION
-  spec.authors       = ["Luca Guidi"]
-  spec.email         = ["me@lucaguidi.com"]
+  spec.authors       = ["Hanakai team"]
+  spec.email         = ["info@hanakai.org"]
   spec.description   = "Hanami utilities"
   spec.summary       = "Ruby core extentions and Hanami utilities"
   spec.homepage      = "http://hanamirb.org"
