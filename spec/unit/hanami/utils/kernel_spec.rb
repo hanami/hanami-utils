@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
-require "ostruct"
 require "bigdecimal"
 require "securerandom"
 require "hanami/utils/kernel"
-
-# rubocop:disable Style/OpenStructUse
 RSpec.describe Hanami::Utils::Kernel do
   describe ".Array" do
     describe "successful operations" do
@@ -613,7 +610,7 @@ RSpec.describe Hanami::Utils::Kernel do
       end
 
       describe "when a an object that doesn't implement any integer interface" do
-        let(:input) { OpenStruct.new(color: "purple") }
+        let(:input) { Data.define(:color).new(color: "purple") }
 
         it "raises error" do
           expect { Hanami::Utils::Kernel.Integer(input) }.to raise_error(TypeError)
@@ -1175,7 +1172,7 @@ RSpec.describe Hanami::Utils::Kernel do
       end
 
       describe "when a an object that doesn't implement any float interface" do
-        let(:input) { OpenStruct.new(color: "purple") }
+        let(:input) { Data.define(:color).new(color: "purple") }
 
         it "raises error" do
           expect { Hanami::Utils::Kernel.Float(input) }.to raise_error(TypeError)
@@ -1424,11 +1421,11 @@ RSpec.describe Hanami::Utils::Kernel do
         end
       end
 
-      describe "when an open struct is given" do
-        let(:input) { OpenStruct.new(title: "DDD") }
+      describe "when a data object is given" do
+        let(:input) { Data.define(:title).new(title: "DDD") }
 
         it "returns the string representation" do
-          expect(@result).to eq '#<OpenStruct title="DDD">'
+          expect(@result).to eq '#<data title="DDD">'
         end
       end
 
@@ -2510,4 +2507,3 @@ RSpec.describe Hanami::Utils::Kernel do
     end
   end
 end
-# rubocop:enable Style/OpenStructUse

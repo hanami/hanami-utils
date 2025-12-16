@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "bigdecimal"
-require "ostruct"
 require "hanami/utils/hash"
 
 RSpec.describe Hanami::Utils::Hash do
@@ -210,9 +209,13 @@ RSpec.describe Hanami::Utils::Hash do
 
   describe ".deep_serialize" do
     let(:input) do
-      klass = Class.new(OpenStruct) do # rubocop:disable Style/OpenStructUse
+      klass = Class.new do
+        def initialize(attributes)
+          @attributes = attributes
+        end
+
         def to_hash
-          to_h
+          @attributes
         end
       end
 
