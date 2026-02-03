@@ -24,8 +24,4 @@ Gem::Specification.new do |spec|
   spec.add_dependency "dry-transformer", "~> 1.0", "< 2"
   spec.add_dependency "concurrent-ruby", "~> 1.0"
   spec.add_dependency "bigdecimal", "~> 3.1"
-
-  spec.add_development_dependency "rake",    "~> 13"
-  spec.add_development_dependency "rspec",   "~> 3.9"
-  spec.add_development_dependency "rubocop", "~> 1.0"
 end

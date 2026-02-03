@@ -21,7 +21,7 @@ module Hanami
   module Utils
     # Kernel utilities
     # @since 0.1.1
-    module Kernel # rubocop:disable Metrics/ModuleLength
+    module Kernel
       # Matcher for numeric values
       #
       # @since 0.3.3
@@ -1015,7 +1015,7 @@ module Hanami
         case arg
         when "" then raise TypeError.new "can't convert #{inspect_type_error(arg)}into Symbol"
         when ->(a) { a.respond_to?(:to_sym) } then arg.to_sym
-        else # rubocop:disable Lint/DuplicateBranch
+        else
           raise TypeError.new "can't convert #{inspect_type_error(arg)}into Symbol"
         end
       rescue NoMethodError

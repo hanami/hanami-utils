@@ -8,6 +8,8 @@ ENV["SIMPLECOV_COMMAND_NAME"] = "Isolation Tests PID #{$$}"
 
 $LOAD_PATH.unshift "lib"
 require "hanami/utils"
+require "rspec"
+require "rspec/expectations"
 require_relative "rspec"
 require_relative "coverage"
 

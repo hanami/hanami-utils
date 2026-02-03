@@ -1,10 +1,15 @@
 # frozen_string_literal: true
 
-if ENV["CI"]
-  require "simplecov"
+# This file is synced from hanakai-rb/repo-sync
 
-  SimpleCov.command_name ENV.fetch("SIMPLECOV_COMMAND_NAME", "spec:unit")
+if ENV["COVERAGE"] == "true"
+  require "simplecov"
+  require "simplecov-cobertura"
+
+  SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+
   SimpleCov.start do
-    add_filter(/spec/)
+    add_filter "/spec/"
+    enable_coverage :branch
   end
 end

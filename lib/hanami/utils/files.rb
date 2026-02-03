@@ -9,7 +9,7 @@ module Hanami
     # Files utilities
     #
     # @since 1.1.0
-    module Files # rubocop:disable Metrics/ModuleLength
+    module Files
       # Creates an empty file for the given path.
       # All the intermediate directories are created.
       # If the path already exists, it doesn't change the contents

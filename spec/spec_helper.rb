@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-if ENV["COVERALL"]
-  require "coveralls"
-  Coveralls.wear!
-end
-
-$LOAD_PATH.unshift "lib"
 require "hanami/utils"
+require "pathname"
 
-Hanami::Utils.require!("spec/support")
+SPEC_ROOT = Pathname(__FILE__).dirname
+
+require_relative "support/rspec"
+SPEC_ROOT.glob("support/**/*.rb").each { |f| require(f) }
