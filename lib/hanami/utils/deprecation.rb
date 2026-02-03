@@ -67,7 +67,7 @@ module Hanami
 
       # @api private
       def caller_index
-        if RUBY_VERSION >= "4.0" || Utils.jruby? || Utils.rubinius?
+        if RUBY_VERSION >= "4.0"
           1
         else
           2
