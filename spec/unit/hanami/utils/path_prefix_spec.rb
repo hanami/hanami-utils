@@ -144,12 +144,12 @@ RSpec.describe Hanami::Utils::PathPrefix do
       it "has a working case equality" do
         string = Hanami::Utils::PathPrefix.new("hanami")
         other  = Hanami::Utils::PathPrefix.new("hanami")
-        expect(string === other).to be_truthy # rubocop:disable Style/CaseEquality
+        expect(string === other).to be_truthy
       end
 
       it "has a working case equality with raw strings" do
         string = Hanami::Utils::PathPrefix.new("hanami")
-        expect(string === "hanami").to be_truthy # rubocop:disable Style/CaseEquality
+        expect(string === "hanami").to be_truthy
       end
     end
 

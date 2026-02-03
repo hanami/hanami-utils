@@ -1,0 +1,15 @@
+name:
+  gem: hanami-utils
+  constant: Hanami::Utils
+  title: Hanami Utils
+github_org: hanami
+gemspec:
+  authors: ["Hanakai team"]
+  email: ["info@hanakai.org"]
+  summary: "Ruby core extentions and Hanami utilities"
+  homepage: "https://hanamirb.org"
+  runtime_dependencies:
+    - ["dry-core", "~> 1.0", "< 2"]
+    - ["dry-transformer", "~> 1.0", "< 2"]
+    - ["concurrent-ruby", "~> 1.0"]
+    - ["bigdecimal", "~> 3.1"]
