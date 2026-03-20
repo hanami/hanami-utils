@@ -1,9 +1,14 @@
 <!--- This file is synced from hanakai-rb/repo-sync -->
 
-[rubygem]: https://rubygems.org/gems/hanami-utils
 [actions]: https://github.com/hanami/hanami-utils/actions
+[chat]: https://discord.gg/naQApPAsZB
+[forum]: https://discourse.hanamirb.org
+[rubygem]: https://rubygems.org/gems/hanami-utils
 
 # Hanami Utils [![Gem Version](https://badge.fury.io/rb/hanami-utils.svg)][rubygem] [![CI Status](https://github.com/hanami/hanami-utils/workflows/CI/badge.svg)][actions]
+
+[![Forum](https://img.shields.io/badge/Forum-dc360f?logo=discourse&logoColor=white)][forum]
+[![Chat](https://img.shields.io/badge/Chat-717cf8?logo=discord&logoColor=white)][chat]
 
 ## Installation
 
