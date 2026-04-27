@@ -16,8 +16,6 @@ group :multi_json do
   gem "multi_json", "~> 1.0", require: false
 end
 
-gem "gson", ">= 0.6", platforms: :jruby
-
 group :test do
   gem "rspec", "~> 3.9"
 end

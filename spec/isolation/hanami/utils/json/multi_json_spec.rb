@@ -3,7 +3,6 @@
 require_relative "#{__dir__}../../../../../support/isolation_spec_helper"
 Bundler.require(:default, :development, :multi_json)
 
-require "gson" if Hanami::Utils.jruby?
 require "hanami/utils/json"
 
 RSpec.describe Hanami::Utils::Json do
