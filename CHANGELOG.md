@@ -21,6 +21,14 @@ and this project adheres to [Break Versioning](https://www.taoensso.com/break-ve
 
 [Unreleased]: https://github.com/hanami/hanami-utils/compare/v2.3.0...main
 
+## [3.0.0.rc1]
+
+### Changed
+
+- Require Ruby 3.3 or newer.
+
+[3.0.0.rc1]: https://github.com/hanami/hanami-utils/compare/v2.3.0...v3.0.0.rc1
+
 ## [2.3.0] - 2025-11-12
 
 [2.3.0]: https://github.com/hanami/hanami-utils/compare/v2.3.0.beta2...v2.3.0
