@@ -33,6 +33,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "dry-core", "~> 1.0", "< 2"
   spec.add_runtime_dependency "dry-transformer", "~> 1.0", "< 2"
   spec.add_runtime_dependency "concurrent-ruby", "~> 1.0"
-  spec.add_runtime_dependency "bigdecimal", "~> 3.1"
+  spec.add_runtime_dependency "bigdecimal", ">= 3.1"
 end
 
