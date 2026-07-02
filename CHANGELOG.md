@@ -19,7 +19,15 @@ and this project adheres to [Break Versioning](https://www.taoensso.com/break-ve
 
 ### Security
 
-[Unreleased]: https://github.com/hanami/hanami-utils/compare/v3.0.0...main
+[Unreleased]: https://github.com/hanami/hanami-utils/compare/v3.0.1...main
+
+## [3.0.1] - 2026-07-03
+
+### Changed
+
+- Allow BigDecimal versions 3 or 4. (@sandbergja in #419)
+
+[3.0.1]: https://github.com/hanami/hanami-utils/compare/v3.0.0...v3.0.1
 
 ## [3.0.0] - 2026-06-30
 
