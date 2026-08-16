@@ -292,8 +292,16 @@ module Hanami
             # Procs and 100% compatibles
             context.instance_exec(*args, &callback)
           else
-            # Anything else that is callable
-            context.instance_exec(*args, &callback.method(:call))
+            # Anything else that is callable.
+            callback_call = callback.method(:call)
+
+            # Allow for our call method not to support the argument
+            # blocks already have this behavior
+            if callback_call.parameters.any?
+              context.instance_exec(*args, &callback_call)
+            else
+              context.instance_exec(&callback_call)
+            end
           end
         end
       end
