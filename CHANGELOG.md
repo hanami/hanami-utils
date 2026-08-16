@@ -11,6 +11,8 @@ and this project adheres to [Break Versioning](https://www.taoensso.com/break-ve
 
 ### Changed
 
+- To be consistent, lambdas and callables in callbacks no longer enforce function arity (just like procs/blocks). (@ziggythehamster in #421)
+
 ### Deprecated
 
 ### Removed
