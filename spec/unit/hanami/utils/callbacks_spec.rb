@@ -224,6 +224,23 @@ RSpec.describe Hanami::Utils::Callbacks::Chain do
     let(:action) { Action.new }
     let(:params) { Hash[id: 23] }
 
+    describe "when lambdas are passed" do
+      before do
+        @chain.append ->()       { logger.push "authenticate!" }
+        @chain.append ->(params) { logger.push "set_article: #{params[:id]}" }
+
+        @chain.run action, params
+      end
+
+      it "executes the callbacks" do
+        authenticate = action.logger.shift
+        expect(authenticate).to eq "authenticate!"
+
+        set_article = action.logger.shift
+        expect(set_article).to eq "set_article: #{params[:id]}"
+      end
+    end
+
     describe "when non-proc callables are passed" do
       before do
         @chain.append AuthenticateCallback.new(action.logger)
