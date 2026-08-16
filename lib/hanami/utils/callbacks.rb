@@ -267,7 +267,13 @@ module Hanami
         #
         # @see Hanami::Utils::Callbacks::Chain#run
         def call(context, *args)
-          context.instance_exec(*args, &callback)
+          if callback.respond_to?(:to_proc)
+            # Procs and 100% compatibles
+            context.instance_exec(*args, &callback)
+          else
+            # Anything else that is callable
+            context.instance_exec(*args, &callback.method(:call))
+          end
         end
       end
 
