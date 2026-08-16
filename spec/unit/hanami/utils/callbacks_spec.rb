@@ -226,7 +226,7 @@ RSpec.describe Hanami::Utils::Callbacks::Chain do
 
     describe "when lambdas are passed" do
       before do
-        @chain.append ->()       { logger.push "authenticate!" }
+        @chain.append ->         { logger.push "authenticate!" }
         @chain.append ->(params) { logger.push "set_article: #{params[:id]}" }
 
         @chain.run action, params
