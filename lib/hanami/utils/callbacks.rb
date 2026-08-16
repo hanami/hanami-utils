@@ -53,6 +53,15 @@ module Hanami
         #   chain.append { Authenticator.authenticate! }
         #   chain.append { |params| ArticleRepository.new.find(params[:id]) }
         #
+        #   # Add a callable that isn't a proc, and it will be wrapped by `Callback` as well.
+        #   module LivenessProbeCallback
+        #     extend self
+        #
+        #     def call = LivenessProbe.alive!
+        #   end
+        #
+        #   chain.append LivenessProbeCallback
+        #
         #   # Append a Symbol as a reference to a method name that will be used as a callback.
         #   # It will wrapped by `MethodCallback`
         #   # If the #notificate method accepts some argument(s) they should be passed when `run` is invoked.
@@ -91,6 +100,15 @@ module Hanami
         #   # The optional argument(s) correspond to the one passed when invoked the chain with `run`.
         #   chain.prepend { Authenticator.authenticate! }
         #   chain.prepend { |params| ArticleRepository.new.find(params[:id]) }
+        #
+        #   # Add a callable that isn't a proc, and it will be wrapped by `Callback` as well.
+        #   module LivenessProbeCallback
+        #     extend self
+        #
+        #     def call = LivenessProbe.alive!
+        #   end
+        #
+        #   chain.prepend LivenessProbeCallback
         #
         #   # Add a Symbol as a reference to a method name that will be used as a callback.
         #   # It will wrapped by `MethodCallback`
@@ -145,6 +163,8 @@ module Hanami
         #   chain.append do |params|
         #     # some other logic that requires `params`
         #   end
+        #
+        #   chain.append SomeEncapsulatedLogic.new # if `call` takes arguments, it will get passed params
         #
         #   chain.run(action, params)
         #
