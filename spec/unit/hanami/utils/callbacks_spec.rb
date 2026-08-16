@@ -43,6 +43,18 @@ class Action
   end
 end
 
+class AuthenticateCallback
+  def initialize(logger) = @logger = logger
+
+  def call(_) = @logger.push "authenticate!"
+end
+
+class SetArticleCallback
+  def initialize(logger) = @logger = logger
+
+  def call(params) = @logger.push "set_article: #{params[:id]}"
+end
+
 RSpec.describe Hanami::Utils::Callbacks::Chain do
   before do
     @chain = Hanami::Utils::Callbacks::Chain.new
@@ -211,6 +223,23 @@ RSpec.describe Hanami::Utils::Callbacks::Chain do
   describe "#run" do
     let(:action) { Action.new }
     let(:params) { Hash[id: 23] }
+
+    describe "when non-proc callables are passed" do
+      before do
+        @chain.append AuthenticateCallback.new(action.logger)
+        @chain.append SetArticleCallback.new(action.logger)
+
+        @chain.run action, params
+      end
+
+      it "executes the callbacks" do
+        authenticate = action.logger.shift
+        expect(authenticate).to eq "authenticate!"
+
+        set_article = action.logger.shift
+        expect(set_article).to eq "set_article: #{params[:id]}"
+      end
+    end
 
     describe "when symbols are passed" do
       before do
