@@ -17,6 +17,8 @@ and this project adheres to [Break Versioning](https://www.taoensso.com/break-ve
 
 ### Fixed
 
+- Callbacks now support non-proc callables as intended. (@ziggythehamster in #421)
+
 ### Security
 
 [Unreleased]: https://github.com/hanami/hanami-utils/compare/v3.0.1...main
