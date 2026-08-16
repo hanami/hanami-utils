@@ -252,7 +252,8 @@ module Hanami
         end
       end
 
-      # Proc callback
+      # Proc and other callable callback.
+      #
       # It wraps an object that responds to #call
       #
       # @since 0.1.0
