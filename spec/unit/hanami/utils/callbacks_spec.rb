@@ -46,7 +46,7 @@ end
 class AuthenticateCallback
   def initialize(logger) = @logger = logger
 
-  def call(_) = @logger.push "authenticate!"
+  def call = @logger.push "authenticate!"
 end
 
 class SetArticleCallback
