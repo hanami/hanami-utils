@@ -235,8 +235,8 @@ module Hanami
         # @example
         #   require 'hanami/utils/callbacks'
         #
-        #   callable = Proc.new{} # it responds to #call
-        #   method   = :upcase    # it doesn't responds to #call
+        #   callable = Proc.new {} # it responds to #call
+        #   method   = :upcase     # it doesn't respond to #call
         #
         #   Hanami::Utils::Callbacks::Factory.fabricate(callable).class
         #     # => Hanami::Utils::Callbacks::Callback
