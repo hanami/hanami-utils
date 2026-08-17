@@ -288,15 +288,16 @@ module Hanami
         #
         # @see Hanami::Utils::Callbacks::Chain#run
         def call(context, *args)
-          callback_proc = if callback.respond_to?(:to_proc)
-                            # Procs and 100% compatibles
-                            callback
-                          else
-                            # Anything else that is callable
-                            # NB: we convert to a proc because it's basically free and
-                            # simplifies the code below, see: https://github.com/ruby/ruby/blob/973c45fcb3eb56df4f13d6aa54499e6ccb02809a/proc.c#L4204
-                            callback.method(:call).to_proc
-                          end
+          callback_proc =
+            if callback.respond_to?(:to_proc)
+              # Procs and 100% compatibles
+              callback
+            else
+              # Anything else that is callable
+              # NB: we convert to a proc because it's basically free and
+              # simplifies the code below, see: https://github.com/ruby/ruby/blob/973c45fcb3eb56df4f13d6aa54499e6ccb02809a/proc.c#L4204
+              callback.method(:call).to_proc
+            end
 
           # Procs don't enforce arity, but lambdas and methods converted to procs do
           if callback_proc.lambda?
