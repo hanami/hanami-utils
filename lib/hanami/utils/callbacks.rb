@@ -53,6 +53,15 @@ module Hanami
         #   chain.append { Authenticator.authenticate! }
         #   chain.append { |params| ArticleRepository.new.find(params[:id]) }
         #
+        #   # Add a callable that isn't a proc, and it will be wrapped by `Callback` as well.
+        #   module LivenessProbeCallback
+        #     extend self
+        #
+        #     def call = LivenessProbe.alive!
+        #   end
+        #
+        #   chain.append LivenessProbeCallback
+        #
         #   # Append a Symbol as a reference to a method name that will be used as a callback.
         #   # It will wrapped by `MethodCallback`
         #   # If the #notificate method accepts some argument(s) they should be passed when `run` is invoked.
@@ -91,6 +100,15 @@ module Hanami
         #   # The optional argument(s) correspond to the one passed when invoked the chain with `run`.
         #   chain.prepend { Authenticator.authenticate! }
         #   chain.prepend { |params| ArticleRepository.new.find(params[:id]) }
+        #
+        #   # Add a callable that isn't a proc, and it will be wrapped by `Callback` as well.
+        #   module LivenessProbeCallback
+        #     extend self
+        #
+        #     def call = LivenessProbe.alive!
+        #   end
+        #
+        #   chain.prepend LivenessProbeCallback
         #
         #   # Add a Symbol as a reference to a method name that will be used as a callback.
         #   # It will wrapped by `MethodCallback`
@@ -145,6 +163,8 @@ module Hanami
         #   chain.append do |params|
         #     # some other logic that requires `params`
         #   end
+        #
+        #   chain.append SomeEncapsulatedLogic.new # if `call` takes arguments, it will get passed params
         #
         #   chain.run(action, params)
         #
@@ -215,8 +235,8 @@ module Hanami
         # @example
         #   require 'hanami/utils/callbacks'
         #
-        #   callable = Proc.new{} # it responds to #call
-        #   method   = :upcase    # it doesn't responds to #call
+        #   callable = Proc.new {} # it responds to #call
+        #   method   = :upcase     # it doesn't respond to #call
         #
         #   Hanami::Utils::Callbacks::Factory.fabricate(callable).class
         #     # => Hanami::Utils::Callbacks::Callback
@@ -232,7 +252,8 @@ module Hanami
         end
       end
 
-      # Proc callback
+      # Proc and other callable callback.
+      #
       # It wraps an object that responds to #call
       #
       # @since 0.1.0
@@ -267,7 +288,23 @@ module Hanami
         #
         # @see Hanami::Utils::Callbacks::Chain#run
         def call(context, *args)
-          context.instance_exec(*args, &callback)
+          callback_proc =
+            if callback.respond_to?(:to_proc)
+              # Procs and 100% compatibles
+              callback
+            else
+              # Anything else that is callable
+              # NB: we convert to a proc because it's basically free and
+              # simplifies the code below, see: https://github.com/ruby/ruby/blob/973c45fcb3eb56df4f13d6aa54499e6ccb02809a/proc.c#L4204
+              callback.method(:call).to_proc
+            end
+
+          # Procs don't enforce arity, but lambdas and methods converted to procs do
+          if callback_proc.lambda?
+            context.instance_exec(*args.take(callback_proc.arity), &callback_proc)
+          else
+            context.instance_exec(*args, &callback_proc)
+          end
         end
       end
 
