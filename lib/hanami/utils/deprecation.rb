@@ -60,18 +60,17 @@ module Hanami
       #     # => old_method is deprecated, please use new_method - called from: test.rb:20:in `start'.
       #     # => started
       def initialize(message)
-        ::Kernel.warn("#{message} - called from: #{caller[caller_index]}.")
-      end
-
-      private
-
-      # @api private
-      def caller_index
-        if RUBY_VERSION >= "4.0" && RUBY_ENGINE != "jruby"
-          1
-        else
-          2
+        # Some Rubies include a frame for our own `.new` call at the top of the stack and some do
+        # not. Skip it if it's present (detect it through the frame having the same path and line as
+        # the frame after it). After that, the first frame is the deprecated method, and the next is
+        # its caller.
+        locations = caller_locations
+        first, second = locations
+        if first.base_label == "new" && first.path == second.path && first.lineno == second.lineno
+          locations.shift
         end
+
+        ::Kernel.warn("#{message} - called from: #{locations[1]}.")
       end
     end
   end
