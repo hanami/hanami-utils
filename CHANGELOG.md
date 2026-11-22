@@ -20,6 +20,7 @@ and this project adheres to [Break Versioning](https://www.taoensso.com/break-ve
 ### Fixed
 
 - Callbacks now support non-proc callables as intended. (@ziggythehamster in #421)
+- `Hanami::Utils::Deprecation` reports the correct calling location on all Ruby engines and versions, including the latest JRuby. (@timriley in #423)
 
 ### Security
 
