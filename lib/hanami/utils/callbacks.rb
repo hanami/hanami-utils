@@ -301,10 +301,21 @@ module Hanami
 
           # Procs don't enforce arity, but lambdas and methods converted to procs do
           if callback_proc.lambda?
-            context.instance_exec(*args.take(callback_proc.arity), &callback_proc)
+            context.instance_exec(*accepted_args(callback_proc, args), &callback_proc)
           else
             context.instance_exec(*args, &callback_proc)
           end
+        end
+
+        private
+
+        # Returns the args that the given lambda accepts: all of them if it takes a splat, otherwise
+        # as many as its required and optional positional params.
+        def accepted_args(callback_proc, args)
+          params = callback_proc.parameters
+          return args if params.any? { |type, _| type == :rest }
+
+          args.take(params.count { |type, _| type == :req || type == :opt })
         end
       end
 

@@ -241,6 +241,36 @@ RSpec.describe Hanami::Utils::Callbacks::Chain do
       end
     end
 
+    describe "when lambdas with optional or splat params are passed" do
+      before do
+        @chain.append ->(params, extra = :default) { logger.push "optional: #{params[:id]}, #{extra}" }
+        @chain.append ->(*args) { logger.push "splat: #{args.size}" }
+        @chain.append ->(params, *rest) { logger.push "req_and_splat: #{params[:id]}, #{rest.size}" }
+
+        @chain.run action, params, :extra
+      end
+
+      it "passes the arguments the lambdas accept" do
+        expect(action.logger).to eq [
+          "optional: #{params[:id]}, extra",
+          "splat: 2",
+          "req_and_splat: #{params[:id]}, 1"
+        ]
+      end
+    end
+
+    describe "when lambdas with optional params are given fewer arguments" do
+      before do
+        @chain.append ->(params, extra = :default) { logger.push "optional: #{params[:id]}, #{extra}" }
+
+        @chain.run action, params
+      end
+
+      it "uses the default values" do
+        expect(action.logger).to eq ["optional: #{params[:id]}, default"]
+      end
+    end
+
     describe "when non-proc callables are passed" do
       before do
         @chain.append AuthenticateCallback.new(action.logger)
@@ -255,6 +285,24 @@ RSpec.describe Hanami::Utils::Callbacks::Chain do
 
         set_article = action.logger.shift
         expect(set_article).to eq "set_article: #{params[:id]}"
+      end
+    end
+
+    describe "when non-proc callables with splat params are passed" do
+      before do
+        callable = Class.new {
+          def initialize(logger) = @logger = logger
+
+          def call(*args) = @logger.push "splat: #{args.size}"
+        }
+
+        @chain.append callable.new(action.logger)
+
+        @chain.run action, params, :extra
+      end
+
+      it "passes all the arguments" do
+        expect(action.logger).to eq ["splat: 2"]
       end
     end
 
