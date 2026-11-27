@@ -5,6 +5,6 @@ module Hanami
     # The current hanami-utils version.
     #
     # @api public
-    VERSION = "3.0.1"
+    VERSION = "3.1.0.rc1"
   end
 end

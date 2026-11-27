@@ -11,20 +11,28 @@ and this project adheres to [Break Versioning](https://www.taoensso.com/break-ve
 
 ### Changed
 
-- To be consistent, lambdas and callables in callbacks no longer enforce function arity (just like procs/blocks). (@ziggythehamster in #421)
-
 ### Deprecated
 
 ### Removed
 
 ### Fixed
 
+### Security
+
+[Unreleased]: https://github.com/hanami/hanami-utils/compare/v3.1.0.rc1...main
+
+## [3.1.0.rc1] - 2026-11-27
+
+### Changed
+
+- To be consistent, lambdas and callables in callbacks no longer enforce function arity (just like procs/blocks). (@ziggythehamster in #421)
+
+### Fixed
+
 - Callbacks now support non-proc callables as intended. (@ziggythehamster in #421, @timriley in #424)
 - `Hanami::Utils::Deprecation` reports the correct calling location on all Ruby engines and versions, including the latest JRuby. (@timriley in #423)
 
-### Security
-
-[Unreleased]: https://github.com/hanami/hanami-utils/compare/v3.0.1...main
+[3.1.0.rc1]: https://github.com/hanami/hanami-utils/compare/v3.0.1...v3.1.0.rc1
 
 ## [3.0.1] - 2026-07-03
 
